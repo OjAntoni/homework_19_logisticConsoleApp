@@ -1,0 +1,10 @@
+1 Absolute-58-fly 30 15 1 sea 4
+2 Galeon-360 25 20 4 sea 6
+3 KingMary 24 160 20 sea 26
+4 King-of-Seas 30 120 40 sea 18
+6 Airbus-A180 600 80 40 air 40
+7 Boeing-717 630 125 16 air 36
+8 Boeing-747 510 20 90 air 46
+9 Boeing-748 410 14 110 air 32
+10 MAN-A60 90 3 40 land 8
+11 Scania-FX3 110 4 50 land 12

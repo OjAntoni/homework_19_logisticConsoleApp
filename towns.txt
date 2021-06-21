@@ -1,0 +1,8 @@
+1 Алжир -2.9 57.9 true true
+2 Амстердам 4.53 52.22 true false
+3 Анкара 32.55 39.55 true true
+4 Афины 23.43 37.58 true true
+5 Барселона -2.9 41.23 true true
+6 Пекин 116.25 39.55 true false
+7 Берлин 13.25 52.3 true false
+8 Будапешт 19.5 47.3 true false
