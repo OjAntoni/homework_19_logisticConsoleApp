@@ -5,6 +5,7 @@ import com.tms.entity.transport.Transport;
 import com.tms.logics.changer.DataStorage;
 import com.tms.logics.changer.TownsChanger;
 import com.tms.logics.changer.TransportChanger;
+import com.tms.logics.solver.ConsolePrinter;
 import com.tms.logics.storage.DbTownStorage;
 import com.tms.logics.storage.DbTransportStorage;
 
@@ -26,9 +27,7 @@ public class ConfigureOptions {
         int choose=0;
 
         while (choose!=3){
-            System.out.println("1-управление городами");
-            System.out.println("2-управление транспортом");
-            System.out.println("3-назад");
+            ConsolePrinter.printConfigureMenu();
             choose = sc.nextInt();
             if(choose==1){
                 changer = new TownsChanger(dbTownStorage);

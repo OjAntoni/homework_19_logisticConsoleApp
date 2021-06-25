@@ -2,6 +2,7 @@ package com.tms.logics.changer;
 
 import com.tms.entity.Town;
 
+import com.tms.logics.solver.ConsolePrinter;
 import com.tms.logics.storage.DbTownStorage;
 
 import java.util.ArrayList;
@@ -52,9 +53,7 @@ public class TownsChanger implements DataStorage {
     public void show() {
         int input=0;
         while (input!=3){
-            System.out.println("1-добавить");
-            System.out.println("2-удалить");
-            System.out.println("3-назад");
+            ConsolePrinter.printChangerMenu();
             input = sc.nextInt();
             if(input==1){
                 add();

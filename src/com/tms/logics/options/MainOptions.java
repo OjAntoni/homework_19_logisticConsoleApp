@@ -30,9 +30,7 @@ public class MainOptions {
 
             while(userInput!=3){
 
-                System.out.println("1-найти путь");
-                System.out.println("2-управление ресурсами");
-                System.out.println("3-выйти");
+                ConsolePrinter.printMainMenu();
                 userInput = sc.nextInt();
 
                 if(userInput==1){
@@ -67,15 +65,20 @@ public class MainOptions {
                     System.out.print("Количество груза в тоннах: ");
                     int load = (int) Math.round(sc.nextDouble());
                     Transport cheapest = Solver.calculateCheapest(transport, people, load, townOne, townTwo);
-                    ConsolePrinter.printCheapest(cheapest,distance,people,load,townOne,townTwo);
                     Transport fastest = Solver.calculateFastest(transport, people, load, townOne, townTwo);
-                    ConsolePrinter.printFastest(fastest,distance,people,load,townOne,townTwo);
+                    if(fastest==null || cheapest==null)
+                        ConsolePrinter.printLackOfTransport();
+                    else {
+                        ConsolePrinter.printCheapest(cheapest, distance, people, load, townOne, townTwo);
+                        ConsolePrinter.printFastest(fastest, distance, people, load, townOne, townTwo);
+                    }
+
                 } else if(userInput==2){
                     opt.show();
                     towns = ((ArrayList<Town>) dbTownStorage.getAll());
                     transport = ((ArrayList<Transport>) dbTransportStorage.getAll());
                 } else{
-                    System.out.println("Bye!!!");
+                    ConsolePrinter.printGoodbye();
                 }
             }
         } catch (SQLException throwables) {

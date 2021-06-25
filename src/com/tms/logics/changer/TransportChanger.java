@@ -5,6 +5,7 @@ import com.tms.entity.transport.transport_type.AirTransport;
 import com.tms.entity.transport.transport_type.LandTransport;
 import com.tms.entity.transport.transport_type.SeaTransport;
 import com.tms.entity.transport.transport_type.TransportType;
+import com.tms.logics.solver.ConsolePrinter;
 import com.tms.logics.storage.DbTransportStorage;
 
 import java.util.ArrayList;
@@ -63,9 +64,7 @@ public class TransportChanger implements DataStorage {
     public void show() {
         int input = 0;
         while (input!=3){
-            System.out.println("1-добавить");
-            System.out.println("2-удалить");
-            System.out.println("3-назад");
+            ConsolePrinter.printChangerMenu();
             input = sc.nextInt();
             if(input==1){
                 add();

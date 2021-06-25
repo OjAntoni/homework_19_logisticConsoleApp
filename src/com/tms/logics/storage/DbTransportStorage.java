@@ -57,7 +57,7 @@ public class DbTransportStorage {
 
     public void add(Transport t){
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("insert into logistics.transpport values (default , ?,?,?,?,?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into logistics.transport values (default , ?,?,?,?,?,?)");
             preparedStatement.setString(1,t.getName());
             preparedStatement.setInt(2,t.getSpeed());
             preparedStatement.setInt(3,t.getPeopleCapacity());
