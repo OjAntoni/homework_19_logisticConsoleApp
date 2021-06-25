@@ -5,17 +5,19 @@ import com.tms.entity.transport.transport_type.AirTransport;
 import com.tms.entity.transport.transport_type.LandTransport;
 import com.tms.entity.transport.transport_type.SeaTransport;
 import com.tms.entity.transport.transport_type.TransportType;
-import com.tms.logics.cache.TransportSaver;
+import com.tms.logics.storage.DbTransportStorage;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TransportChanger implements DataChangerInterface{
+public class TransportChanger implements DataStorage {
     ArrayList<Transport> transport;
+    DbTransportStorage dbTransportStorage;
     Scanner sc = new Scanner(System.in);
 
-    public TransportChanger(ArrayList<Transport> transport) {
-        this.transport = transport;
+    public TransportChanger(DbTransportStorage dbTransportStorage) {
+        this.dbTransportStorage = dbTransportStorage;
+        transport = ((ArrayList<Transport>) dbTransportStorage.getAll());
     }
 
     @Override
@@ -27,10 +29,10 @@ public class TransportChanger implements DataChangerInterface{
         int id = Integer.parseInt(sc.next());
         if(transport.stream().anyMatch(t -> t.getId() == id)) return;
 
-        System.out.print("Тип транспорта(air=1,land=2,sea=3): ");
+        System.out.print("Тип транспорта(land=1,air=2,sea=3): ");
         int typ = sc.nextInt();
         TransportType type;
-        if(typ==1) type = new AirTransport();
+        if(typ==2) type = new AirTransport();
         else if(typ==3) type = new SeaTransport();
         else type = new LandTransport();
 
@@ -43,8 +45,8 @@ public class TransportChanger implements DataChangerInterface{
         int loadCapacity = sc.nextInt();
         System.out.print("Цена за км: ");
         int price = sc.nextInt();
-        transport.add(new Transport(id,name,speed,peopleCapacity,loadCapacity,type,price));
-        TransportSaver.save(transport);
+        dbTransportStorage.add(new Transport(id,name,speed,peopleCapacity,loadCapacity,type,price));
+        transport = ((ArrayList<Transport>) dbTransportStorage.getAll());
     }
 
     @Override
@@ -52,15 +54,9 @@ public class TransportChanger implements DataChangerInterface{
         System.out.print("ID транспорта: ");
         int id = sc.nextInt();
         if(transport.stream().noneMatch(t -> t.getId() == id)) return;
-        int j = 0;
-        for(int i = 0; i < transport.size(); i++){
-            if(transport.get(i).getId()==id) {
-                j = i;
-                break;
-            }
-        }
-        transport.remove(j);
-        TransportSaver.save(transport);
+        dbTransportStorage.deleteById(id);
+        transport = ((ArrayList<Transport>) dbTransportStorage.getAll());
+        //TransportSaver.save(transport);
     }
 
     @Override
@@ -78,4 +74,5 @@ public class TransportChanger implements DataChangerInterface{
             }
         }
     }
+
 }

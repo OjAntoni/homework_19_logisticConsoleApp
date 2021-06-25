@@ -1,17 +1,20 @@
 package com.tms.logics.changer;
 
 import com.tms.entity.Town;
-import com.tms.logics.cache.TownsSaver;
+
+import com.tms.logics.storage.DbTownStorage;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TownsChanger implements DataChangerInterface{
+public class TownsChanger implements DataStorage {
+    DbTownStorage dbTownStorage;
     ArrayList<Town> towns;
     Scanner sc = new Scanner(System.in);
 
-    public TownsChanger(ArrayList<Town> towns){
-        this.towns = towns;
+    public TownsChanger(DbTownStorage storage){
+        dbTownStorage=storage;
+        towns = ((ArrayList<Town>) storage.getAll());
     }
 
     @Override
@@ -21,31 +24,28 @@ public class TownsChanger implements DataChangerInterface{
         if(towns.stream().anyMatch(t -> t.getId() == id)) return;
         System.out.print("Название города: ");
         String name = sc.nextLine();
+        while (name.equals("")) name = sc.nextLine();
         System.out.print("Долгота: ");
         double longitude = sc.nextDouble();
         System.out.print("Широта: ");
         double latitude = sc.nextDouble();
         System.out.print("Наличие аэропорта(да,нет):");
+        Scanner scanner = new Scanner(System.in);
+        String answer = scanner.nextLine();
         boolean hasAirport = sc.nextLine().equals("да");
         System.out.print("Наличие морского порта(да,нет):");
-        boolean hasPort = sc.nextLine().equals("да");
-        towns.add(new Town(id, name, longitude, latitude, hasAirport, hasPort));
-        TownsSaver.save(towns);
+        boolean hasPort = scanner.nextLine().equals("да");
+        dbTownStorage.add(new Town(id, name, longitude, latitude, hasAirport, hasPort));
+        //TownsSaver.save(towns);
     }
 
     @Override
     public void delete() {
         System.out.print("ID города: ");
         int id = sc.nextInt();
-        if(towns.stream().noneMatch(t -> t.getId() == id)) return;
-        int index=0;
-        for(int i = 0; i < towns.size(); i++){
-            if(towns.get(i).getId()==id){
-                index=i;
-            }
-        }
-        towns.remove(index);
-        TownsSaver.save(towns);
+        if(dbTownStorage.getAll().stream().noneMatch(t -> t.getId() == id)) return;
+        dbTownStorage.deleteById(id);
+        towns = ((ArrayList<Town>) dbTownStorage.getAll());
     }
 
     @Override

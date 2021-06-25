@@ -5,4 +5,9 @@ public class LandTransport extends TransportType{
     public String getType() {
         return "land";
     }
+
+    @Override
+    public int getTypeInt() {
+        return 1;
+    }
 }

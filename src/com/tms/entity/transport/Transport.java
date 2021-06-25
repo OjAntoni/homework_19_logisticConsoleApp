@@ -28,6 +28,10 @@ public class Transport {
         return transportType.getType();
     }
 
+    public int getIntType(){
+        return transportType.getTypeInt();
+    }
+
     public String toString(){
         return id+" "+name+" "+speed+" "+peopleCapacity+" "+loadCapacity+" "+transportType.getType()+" "+pricePerKm;
     }

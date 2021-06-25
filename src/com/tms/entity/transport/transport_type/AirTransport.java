@@ -5,4 +5,9 @@ public class AirTransport extends TransportType {
     public String getType() {
         return "air";
     }
+
+    @Override
+    public int getTypeInt() {
+        return 2;
+    }
 }

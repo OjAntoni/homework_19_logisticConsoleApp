@@ -5,4 +5,9 @@ public class SeaTransport extends TransportType{
     public String getType() {
         return "sea";
     }
+
+    @Override
+    public int getTypeInt() {
+        return 3;
+    }
 }
