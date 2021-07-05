@@ -18,7 +18,7 @@ public class MainOptions {
     public static void showMainOptions(){
         Connection connection;
         try {
-            connection=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","123414");
+            connection=DriverManager.getConnection("your postgres url","postgres","your password");
             DbTownStorage dbTownStorage = new DbTownStorage(connection);
             ArrayList<Town> towns = ((ArrayList<Town>) dbTownStorage.getAll());
             DbTransportStorage dbTransportStorage = new DbTransportStorage(connection);
